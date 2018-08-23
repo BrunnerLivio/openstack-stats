@@ -1,0 +1,11 @@
+{
+    "username": "",
+    "password": "",
+    "projectId": "",
+    "domain": "",
+    "servers": {
+        "glance": "https://my-openstack.com:8774/v2/",
+        "nova": "https://my-openstack.com:8774/v2/",
+        "keystone": "https://my-openstack.com:5000/v3/"
+    }
+}
