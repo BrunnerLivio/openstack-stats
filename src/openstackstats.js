@@ -3,7 +3,7 @@ const Openstack = require('./openstack');
 const { join } = require('path');
 
 const CWD = process.cwd();
-const CONFIG_FILE = process.env.CONFIG_FILE ? join(CWD, (process.env.CONFIG_FILE || '')) : '../config.json';
+const CONFIG_FILE = process.env.CONFIG_FILE ? process.env.CONFIG_FILE : '../config.json';
 
 class OpenstackStats {
     constructor() {
