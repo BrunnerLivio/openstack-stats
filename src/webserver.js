@@ -5,6 +5,8 @@ const koaStatic = require('koa-static');
 const logger = require('koa-logger');
 const json = require('koa-json');
 
+const { map } = require('p-iteration');
+
 const Openstack = require('./openstack');
 
 const PORT = process.env.PORT || 3000;
@@ -16,12 +18,21 @@ class WebServer {
         this.openstack = Openstack.Instance;
     }
 
+    async fetchServers() {
+        const servers = await this.openstack.fetchServers();
+        const images = await this.openstack.listImages();
+        return await map(servers, async server => {
+            server.image = images.find(image => image.id === server.image.id);
+            return server;
+        });
+    }
+
     async registerRoutes() {
         this.router.get('/', async (ctx, next) => {
             await ctx.render('index');
         });
 
-        this.router.get('/api/server', async ctx => ctx.body = await this.openstack.fetchServers())
+        this.router.get('/api/server', async ctx => ctx.body = await this.fetchServers())
 
         this.app
             .use(this.router.routes())

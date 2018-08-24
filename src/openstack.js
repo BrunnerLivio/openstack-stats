@@ -93,6 +93,24 @@ module.exports = class OpenstackService {
         });
     }
 
+    async getImage(id) {
+        if (this.hasTokenExpired()) {
+            await this.updateToken();
+        }
+        return new Promise((resolve, reject) => {
+            if (DRY_RUN) {
+                return resolve();
+            }
+            this.glance.getImage(id, (error, image) => {
+                if (error) {
+                    return reject(error);
+                } else {
+                    return resolve(image);
+                }
+            });
+        });
+    }
+
     async createServer(settings) {
         if (this.hasTokenExpired()) {
             await this.updateToken();
