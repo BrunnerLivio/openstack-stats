@@ -82,7 +82,9 @@ class ServerList extends Component {
         const items = (state.servers || []).map(server => h(ServerItem, { server }));
         return (
             h('main', { class: 'openstack-main' },
-                h('ul', { class: 'server-list' }, items)
+                h('div', { class: 'server-list' },
+                    h('ul', { class: 'server-list-container' }, items)
+                )
             )
         );
     }

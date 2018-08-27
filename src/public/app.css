@@ -63,6 +63,12 @@ STYLE
 	justify-content: center;
 }
 
+.server-list-container {
+	width: 24vw;
+    height: 24vw;
+    position: relative;
+}
+
 .instance {
     display: block;
     width: 6vw;
